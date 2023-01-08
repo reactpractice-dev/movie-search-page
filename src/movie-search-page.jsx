@@ -8,7 +8,7 @@ const MovieSearchPage = () => {
     axios
       .get("https://api.themoviedb.org/3/search/movie", {
         params: {
-          api_key: "1234",
+          api_key: process.env.THE_MOVIE_DATABASE_API_KEY,
           query: "amelie",
         },
       })
