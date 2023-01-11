@@ -9,6 +9,7 @@ const MovieSearchPage = () => {
 
   const handleMovieSearch = (e) => {
     e.preventDefault();
+    setError(null);
     axios
       .get("https://api.themoviedb.org/3/search/movie", {
         params: {
