@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Movie from "./movie";
 
 const MovieSearchPage = () => {
   const [movies, setMovies] = useState([]);
@@ -20,11 +21,11 @@ const MovieSearchPage = () => {
   return (
     <div>
       <h2>Movie search page</h2>
-      <ul>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
         {movies.map((movie) => (
-          <li key={movie.id}>{movie.original_title}</li>
+          <Movie key={movie.id} movie={movie} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
