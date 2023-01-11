@@ -5,6 +5,7 @@ import Movie from "./movie";
 const MovieSearchPage = () => {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(null);
 
   const handleMovieSearch = (e) => {
     e.preventDefault();
@@ -17,6 +18,11 @@ const MovieSearchPage = () => {
       })
       .then((response) => {
         setMovies(response.data.results);
+      })
+      .catch(() => {
+        setError(
+          "There was an error loading the movie search results. Please try again later."
+        );
       });
   };
 
@@ -32,6 +38,7 @@ const MovieSearchPage = () => {
         />
         <button type="submit">Search</button>
       </form>
+      {error && <div style={{ color: "red" }}>{error}</div>}
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {movies.map((movie) => (
           <Movie key={movie.id} movie={movie} />
