@@ -1,30 +1,15 @@
 import { useState } from "react";
-import axios from "axios";
 import Movie from "./movie";
+import useMovieSearch from "./use-movie-search";
 
 const MovieSearchPage = () => {
-  const [movies, setMovies] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [error, setError] = useState(null);
+  const [searchInputText, setSearchInputText] = useState("");
+  const { movies, error, setSearchQuery } = useMovieSearch();
 
   const handleMovieSearch = (e) => {
     e.preventDefault();
-    setError(null);
-    axios
-      .get("https://api.themoviedb.org/3/search/movie", {
-        params: {
-          api_key: process.env.THE_MOVIE_DATABASE_API_KEY,
-          query: searchQuery,
-        },
-      })
-      .then((response) => {
-        setMovies(response.data.results);
-      })
-      .catch(() => {
-        setError(
-          "There was an error loading the movie search results. Please try again later."
-        );
-      });
+    // Update the movie search query when the user clicks "Search"
+    setSearchQuery(searchInputText);
   };
 
   return (
@@ -34,8 +19,8 @@ const MovieSearchPage = () => {
         <input
           type="text"
           placeholder="Search for a movie"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchInputText}
+          onChange={(e) => setSearchInputText(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
